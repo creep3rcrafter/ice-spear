@@ -8,6 +8,8 @@ const electron = require("electron");
 const fs = require("fs-extra");
 const path = require("path");
 const url = require("url");
+const os = require("os");
+
 const Split = require("split.js");
 
 const Notify = requireGlobal("lib/notify/notify.js");
@@ -25,6 +27,9 @@ const { dialog } = electron.remote;
 const BrowserWindow = electron.remote.BrowserWindow;
 
 const App_Base = requireGlobal("apps/base.js");
+const { clipboard } = require("electron");
+const CONFIG_DIR = path.join(os.homedir(), ".ice-spear");
+const userTemplateDir = path.join(CONFIG_DIR, "/templates");
 
 module.exports = class App extends App_Base {
     constructor(window, args) {
@@ -60,6 +65,8 @@ module.exports = class App extends App_Base {
                 this.shrineEditor.getPackFilePath()
             );
         };
+        this.node.querySelector(".data-tool-buildTemplate").onclick = () =>
+          this.buildTemplate();
         /*
         this.node.querySelector(".data-tool-openLogicEditor").onclick = async () => 
         {
@@ -115,6 +122,132 @@ module.exports = class App extends App_Base {
                 this.shrineEditor.actorHandler.addFromTemplate(templateName);
             };
     }
+    /**
+   * Template Builder
+   * Im aware this code is crap but ill fix it later.
+   */
+     async buildTemplate() {
+        await this.loader.setStatus("Building Template");
+        await this.loader.show();
+    
+        if (this.shrineEditor.actorEditor.selectedActors == 0) {
+          await this.loader.hide();
+          Notify.error("Nothing Selected", "Template Builder Failed");
+        } else {
+          var JSONObject;
+          var JSONArray = [];
+          var hashIds = [];
+          var initX;
+          var initY;
+          var initZ;
+    
+          for (
+            var i = 0;
+            i < this.shrineEditor.actorEditor.selectedActors.length;
+            i++
+          ) {
+            JSONObject = JSON.parse(
+              this.shrineEditor.actorEditor.selectedActors[i].getParamJSON()
+            );
+            if (i == 0) {
+              initX = JSONObject["Translate"][0]["value"];
+              JSONObject["Translate"][0]["value"] = 0;
+              initY = JSONObject["Translate"][1]["value"];
+              JSONObject["Translate"][1]["value"] = 0;
+              initZ = JSONObject["Translate"][2]["value"];
+              JSONObject["Translate"][2]["value"] = 0;
+            } else {
+              JSONObject["Translate"][0]["value"] =
+                JSONObject["Translate"][0]["value"] - initX;
+              JSONObject["Translate"][1]["value"] =
+                JSONObject["Translate"][1]["value"] - initY;
+              JSONObject["Translate"][2]["value"] =
+                JSONObject["Translate"][2]["value"] - initZ;
+            }
+            var id = "{ID" + i + "}";
+            hashIds[i] = {
+              HashId: JSONObject["HashId"]["value"],
+              id: id,
+            };
+            JSONObject["HashId"]["value"] = id;
+            JSONArray.push(JSONObject);
+          }
+    
+          for (var j = 0; j < JSONArray.length; j++) {
+            if ("LinksToObj" in JSONArray[j]) {
+              for (var k = 0; k < JSONArray[j]["LinksToObj"].length; k++) {
+                if (
+                  !hashIds.some((item) => {
+                    if (
+                      item["HashId"] ==
+                      JSONArray[j]["LinksToObj"][k]["DestUnitHashId"]["value"]
+                    ) {
+                      JSONArray[j]["LinksToObj"][k]["DestUnitHashId"]["value"] =
+                        item["id"];
+                      return true;
+                    } else {
+                      return false;
+                      a;
+                    }
+                  })
+                ) {
+                  JSONArray[j]["LinksToObj"][k]["DestUnitHashId"]["value"] =
+                    "Unknown";
+                }
+              }
+            }
+          }
+    
+          var name = document.getElementById("templateInput").value;
+    
+          var actor = {
+            name: name,
+            actors: JSONArray,
+          };
+    
+          if (name == "") {
+            await this.loader.hide();
+            Notify.error("Invalid Name", "Template Builder Failed");
+          } else {
+            var fileName = this.snakeCase(name) + ".json";
+            //clipboard.writeText(JSON.stringify(actor, null, 2));
+            fs.writeFileSync(
+              path.join(userTemplateDir, fileName),
+              JSON.stringify(actor, null, 2),
+              async function (err) {
+                if (await err) {
+                  Notify.error("File Error", "Template Builder Failed");
+                }
+              }
+            );
+            await this.loader.hide();
+            Notify.success(
+              path.join(userTemplateDir, fileName).toString(),
+              "Template Built"
+            );
+            Actor_Templates.getHtmlSelect().then(
+              (html) =>
+                (this.node.querySelector(".data-tool-actorTemplate").innerHTML =
+                  html)
+            );
+          }
+        }
+      }
+
+  /**
+   * Not mine IDK where I got this.
+   */
+  snakeCase = (string) => {
+    const toSnakeCase = (str = "") => {
+      const strArr = str.split(" ");
+      const snakeArr = strArr.reduce((acc, val) => {
+        return acc.concat(val.toLowerCase());
+      }, []);
+      return snakeArr.join("_");
+    };
+    const newText = toSnakeCase(string);
+    return newText;
+  };
 
     /**
      * saves the shrine

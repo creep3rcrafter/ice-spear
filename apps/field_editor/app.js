@@ -7,6 +7,8 @@
 const electron = require("electron");
 const fs = require("fs-extra");
 const path = require("path");
+const os = require("os");
+
 const Split = require("split.js");
 const { dialog } = electron.remote;
 
@@ -24,6 +26,8 @@ const AocMainField_Handler = require("./../../lib/aoc_handler");
 
 const App_Base = requireGlobal("apps/base.js");
 const { clipboard } = require("electron");
+const CONFIG_DIR = path.join(os.homedir(), ".ice-spear");
+const userTemplateDir = path.join(CONFIG_DIR, "/templates");
 
 module.exports = class App extends App_Base {
   constructor(window, args) {
@@ -178,6 +182,7 @@ module.exports = class App extends App_Base {
                   return true;
                 } else {
                   return false;
+                  a;
                 }
               })
             ) {
@@ -190,8 +195,6 @@ module.exports = class App extends App_Base {
 
       var name = document.getElementById("templateInput").value;
 
-      name = this.snakeCase(name);
-
       var actor = {
         name: name,
         actors: JSONArray,
@@ -201,11 +204,28 @@ module.exports = class App extends App_Base {
         await this.loader.hide();
         Notify.error("Invalid Name", "Template Builder Failed");
       } else {
-        clipboard.writeText(JSON.stringify(actor, null, 2));
+        var fileName = this.snakeCase(name) + ".json";
+        //clipboard.writeText(JSON.stringify(actor, null, 2));
+        fs.writeFileSync(
+          path.join(userTemplateDir, fileName),
+          JSON.stringify(actor, null, 2),
+          async function (err) {
+            if (await err) {
+              Notify.error("File Error", "Template Builder Failed");
+            }
+          }
+        );
         await this.loader.hide();
-        Notify.success(name + " : Copied to Clipboard", "Template Built");
+        Notify.success(
+          path.join(userTemplateDir, fileName).toString(),
+          "Template Built"
+        );
+        Actor_Templates.getHtmlSelect().then(
+          (html) =>
+            (this.node.querySelector(".data-tool-actorTemplate").innerHTML =
+              html)
+        );
       }
-      //TODO someday make it generate the template.json in the correct location
     }
   }
 

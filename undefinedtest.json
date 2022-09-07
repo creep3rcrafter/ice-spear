@@ -1,0 +1,53 @@
+{
+  "name": "test",
+  "actors": [
+    {
+      "HashId": {
+        "type": 211,
+        "value": "{ID0}"
+      },
+      "LinksToObj": [
+        {
+          "DefinitionName": {
+            "type": 160,
+            "value": "PlacementLOD"
+          },
+          "DestUnitHashId": {
+            "type": 211,
+            "value": "Unknown"
+          }
+        }
+      ],
+      "OnlyOne": {
+        "type": 208,
+        "value": true
+      },
+      "Rotate": {
+        "type": 210,
+        "value": 0
+      },
+      "SRTHash": {
+        "type": 209,
+        "value": -1821199417
+      },
+      "Translate": [
+        {
+          "type": 210,
+          "value": 0
+        },
+        {
+          "type": 210,
+          "value": 0
+        },
+        {
+          "type": 210,
+          "value": 0
+        }
+      ],
+      "UnitConfigName": {
+        "type": 160,
+        "value": "TwnObj_Village_HatenoBarn_A_01"
+      }
+    }
+  ]
+}
