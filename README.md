@@ -22,7 +22,6 @@ https://gitlab.com/ice-spear-tools/issue-tracker/issues
   - The Template will be copied into your templates 
   folder at `C:\Users\user\.ice-spear\templates` in .json format.
   - Finally Now check your templates and it should be ready to use.
-  <img src="https://github.com/creep3rcrafter/ice-spear/blob/Template-Builder/assets/img/Demo.gif">
   
 - **Notes**
   - The first Actor you select be the center point for the template
