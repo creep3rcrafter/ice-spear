@@ -17,11 +17,11 @@ https://gitlab.com/ice-spear-tools/issue-tracker/issues
 - **How to use it**
   - Added a new build template button under the Actor-Templates section.
   - Simply select all the actors that you want.
-  - Enter the Template name just use simple characters spaces will be replaced with `_`.
-  - Then click build template .
-  - The Template will be copied to your clipboard for you to paste
-   into your templates folder at `C:\Users\user\.ice-spear\templates` in .json format.
-  - Finally once you have created your template restart ice-spear
+  - Enter the Template name just use simple characters.
+  - Then click build template.
+  - The Template will be copied into your templates 
+  folder at `C:\Users\user\.ice-spear\templates` in .json format.
+  - Finally Now check your templates and it should be ready to use.
   <img src="https://github.com/creep3rcrafter/ice-spear/blob/Template-Builder/assets/img/Demo.gif">
   
 - **Notes**
