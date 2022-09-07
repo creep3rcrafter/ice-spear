@@ -10,6 +10,7 @@ https://gitlab.com/ice-spear-tools/issue-tracker/issues
 ### Releases
 
 - https://github.com/creep3rcrafter/ice-spear/releases/tag/2.6.0b1
+- Just Extract and run Ice-Spear.exe
 
 ### Whats New
 
