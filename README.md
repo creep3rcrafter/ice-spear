@@ -7,6 +7,10 @@ https://gitlab.com/ice-spear-tools/ice-spear/wikis/home
 Issues for bugs and features are inside the issue-repo: <br/>
 https://gitlab.com/ice-spear-tools/issue-tracker/issues
 
+###Releases
+
+-https://github.com/creep3rcrafter/ice-spear/releases/tag/2.6.0b1
+
 ### Whats New
 
 - **How to use it**
