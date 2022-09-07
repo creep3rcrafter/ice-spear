@@ -1,8 +1,8 @@
 {
   "name": "ice-spear-editor",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "license": "GPL-3.0",
-  "author": "Caleb Smith",
+  "author": "Brenden Delano",
   "main": "main.js",
   "bin": {
     "ice-spear": "./main.js"
@@ -11,7 +11,7 @@
     "start": "electron . --js-flags=\"--expose-gc\"",
     "update-license-csv": "license-checker --csv > MODULES_LICENSE.csv",
     "test": "electron-mocha --recursive",
-    "pack": "electron-builder --dir",
+    "unpacked": "electron-builder --dir",
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
