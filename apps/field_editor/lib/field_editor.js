@@ -136,4 +136,7 @@ module.exports = class Field_Editor extends Mubin_Editor {
     async save() {
         return await this.fieldCreator.save(this.mubinDir, this.mubinName);
     }
+    async saveModLocation() {
+        return await this.fieldCreator.save(this.project.path, this.mubinName);
+    }
 };

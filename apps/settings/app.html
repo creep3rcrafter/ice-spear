@@ -98,11 +98,37 @@
                     </div>
 
                     <div class="tab-content" data-tab="projects" hidden>
-                        <div class="form-group drag-drop-dir">
-                            <label>Directory to put Projects in</label>
-                            <br/>
-                            <button class="btn btn-large btn-default">Select</button>
-                            <input type="text" data-dataType="path" data-configRef="projects.path" class="form-control" placeholder="Open or drag&drop a directory">
+                        <div class="settings-container">
+                            <div class="form-group drag-drop-dir">
+                                <label>Directory to put Projects in</label>
+                                <br/>
+                                <button class="btn btn-large btn-default">Select</button>
+                                <input type="text" data-dataType="path" data-configRef="projects.path" class="form-control" placeholder="Open or drag&drop a directory">
+                            </div>
+                            
+                            <div class="settings-container">
+                            <div class="form-group drag-drop-dir">
+                                <label>Directory to save .smubin files</label>
+                                <br>
+                                <button class="btn btn-large btn-default">Select<br/></button>
+                                <input type="text" data-dataType="path" data-configRef="projects.savePath" class="form-control" placeholder="Open or drag&drop a directory">
+                            </div>
+                            <span class="note-span">
+                                Note: <span class="small-info-text">Usefull so you dont need to copy them seperately every time, Still saves unprocessed files to your project folder.</span>
+                            </span>
+                            </div>
+                            <span>
+                                <div class="settings-container">
+                                    <label>
+                                        <input type="checkbox" data-autoSave="true" data-dataType="bool" data-configRef="project.processSmubin" />
+                                        <span>Process .smubin</span>
+                                    </label>
+                                    <br>
+                                    <span class="note-span" style="margin-left:0;">
+                                        Note: <span class="small-info-text">Dont use this setting with BMCL!<br/></span>
+                                    </span>
+                                </div>
+                            </span>
                         </div>
                     </div>
 

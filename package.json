@@ -64,6 +64,7 @@
     "pako": "^1.0.6",
     "picogl": "^0.8.9",
     "png-lib": "https://gitlab.com/ice-spear-tools/png-lib/-/archive/master/png-lib-master.tar",
+    "python-bridge": "^1.1.0",
     "sanitize-filename": "^1.6.1",
     "sarc-lib": "https://gitlab.com/ice-spear-tools/sarc-lib/-/archive/master/sarc-lib-master.tar",
     "split.js": "^1.3.5",

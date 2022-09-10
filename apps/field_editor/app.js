@@ -252,6 +252,7 @@ module.exports = class App extends App_Base {
     await this.loader.show();
 
     await this.fieldEditor.save();
+    await this.fieldEditor.saveModLocation();
 
     await this.loader.hide();
     Notify.success(`Field '${this.fieldSection}' saved`);
